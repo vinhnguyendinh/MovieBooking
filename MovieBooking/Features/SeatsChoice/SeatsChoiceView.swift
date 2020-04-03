@@ -35,7 +35,8 @@ struct SeatsChoiceView<T: Movie>: View {
             }
         }
         .sheet(isPresented: self.$showBasket) {
-            Text("Implementing")
+            BasketView(ticket: Ticket(id: UUID(), movie: self.movie, date: self.date, time: self.time),
+                       selectedSeats: self.selectedSeats)
         }
         .blur(radius: self.showPopup ? 10 : 0)
         .overlay(
@@ -71,12 +72,13 @@ struct SeatsChoiceView<T: Movie>: View {
                     self.showPopup.toggle()
                 }
             }
-        }.frame(width: UIScreen.main.bounds.width * 0.8, height: 200, alignment: .bottom)
-            .padding()
-            .background(Color.background.opacity(0.7))
-            .cornerRadius(20)
-            .shadow(color: Color.textColor.opacity(0.3), radius: 20, x: 0, y: 10)
-            .transition(.move(edge: .bottom))
+        }
+        .frame(width: UIScreen.main.bounds.width * 0.8, height: 200, alignment: .bottom)
+        .padding()
+        .background(Color.background.opacity(0.7))
+        .cornerRadius(20)
+        .shadow(color: Color.textColor.opacity(0.3), radius: 20, x: 0, y: 10)
+        .transition(.move(edge: .bottom))
     }
 
     fileprivate func validateInputs() -> Bool {
